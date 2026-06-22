@@ -738,9 +738,8 @@ kind; otherwise they are returned in the order that they appear in the file."
   (lambda (cand)
     (let* ((action (get-text-property 0 'consult--candidate cand))
            (kind (lsp-get action :kind)))
-      (if kind
-          (list cand "" (propertize kind 'face 'font-lock-comment-face))
-        (list cand)))))
+      (when kind
+        (consult--annotate-align cand (propertize kind 'face 'font-lock-comment-face))))))
 
 ;;;###autoload
 (defun consult-lsp-code-actions ()
